@@ -1,6 +1,6 @@
 {
 	"name": "@diemantra/safe-await",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A utility function to safely await promises with error handling and optional transformations.",
 	"main": "dist/cjs/safeAwait.js",
 	"module": "dist/esm/safeAwait.js",
