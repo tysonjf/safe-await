@@ -1,0 +1,40 @@
+name: Publish Package to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on tags like v1.0.0, v1.2.3
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Checks out your code
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Specify the Node.js version to use
+          registry-url: 'https://registry.npmjs.org/' # Point to the npm registry
+
+      # If you use pnpm, install it first (adjust if using npm or yarn)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Specify pnpm version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile # Use pnpm to install dependencies
+
+      - name: Build package
+        run: pnpm build # Run your build script
+
+      # Optional: Add a step here to run tests if you have them
+      # - name: Run tests
+      #   run: pnpm test
+
+      - name: Publish to npm
+        run: npm publish # Publish the package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use the secret token for authentication
