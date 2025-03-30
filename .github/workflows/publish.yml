@@ -22,7 +22,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8 # Specify pnpm version
+          version: 9 # Use the latest v9, or specify '9.4.0' if you need that exact patch
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile # Use pnpm to install dependencies
