@@ -27,12 +27,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile # Use pnpm to install dependencies
 
+      # Add the test step here
+      - name: Run tests
+        run: pnpm test
+
       - name: Build package
         run: pnpm build # Run your build script
-
-      # Optional: Add a step here to run tests if you have them
-      # - name: Run tests
-      #   run: pnpm test
 
       - name: Publish to npm
         run: npm publish --access public

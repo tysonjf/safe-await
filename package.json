@@ -6,8 +6,13 @@
 	"module": "dist/esm/safeAwait.js",
 	"types": "dist/types/safeAwait.d.ts",
 	"scripts": {
-		"build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json",
-		"prepublishOnly": "npm run build"
+		"clean": "rm -rf dist",
+		"build:types": "tsc -p tsconfig.types.json",
+		"build:js": "esbuild src/safeAwait.ts --bundle --outfile=dist/cjs/safeAwait.js --format=cjs --platform=node --minify && esbuild src/safeAwait.ts --bundle --outfile=dist/esm/safeAwait.js --format=esm --platform=node --minify",
+		"build": "npm run clean && npm run build:types && npm run build:js",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"prepublishOnly": "npm run test && npm run build"
 	},
 	"files": [
 		"dist/",
@@ -32,7 +37,9 @@
 	"homepage": "https://github.com/tysonjf/safe-await#readme",
 	"devDependencies": {
 		"@types/node": "^22.13.14",
-		"typescript": "^5.0.0"
+		"esbuild": "^0.20.0",
+		"typescript": "^5.0.0",
+		"vitest": "^1.0.0"
 	},
 	"engines": {
 		"node": ">=14"
